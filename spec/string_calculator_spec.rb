@@ -31,6 +31,23 @@ RSpec.describe StringCalculator do
       expect(StringCalculator.add("//;\n1;2")).to eq(3)
     end
 
+    it "supports custom multi-character delimiters" do
+      expect(StringCalculator.add("//***\n1***2***3")).to eq(6)
+    end
+
+    it "supports special character delimiters" do
+      expect(StringCalculator.add("//|\n2|3|4")).to eq(9)
+      expect(StringCalculator.add("//$\n5$10$15")).to eq(30)
+    end
+
+    it "raises an error for negative numbers" do
+      expect { StringCalculator.add("1,-2,3,-4") }.to raise_error("negative numbers not allowed: -2, -4")
+    end
+
+    it "handles negative numbers even with custom delimiters" do
+      expect { StringCalculator.add("//;\n1;-2;3;-4") }.to raise_error("negative numbers not allowed: -2, -4")
+    end
+
     it "raises an error for malformed input with consecutive delimiters" do
       expect { StringCalculator.add("//-\n1-2--3") }.to raise_error("Invalid format detected: 1-2--3")
     end
@@ -45,6 +62,10 @@ RSpec.describe StringCalculator do
     
     it "raises an error if no numbers are provided after the delimiter declaration" do
       expect { StringCalculator.add("//;\n") }.to raise_error("Invalid format detected: ")
+    end
+
+    it "raises an error for multiple consecutive custom delimiters" do
+      expect { StringCalculator.add("//;\n1;;2") }.to raise_error("Invalid format detected: 1;;2")
     end
   end
 end
