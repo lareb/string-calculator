@@ -38,5 +38,9 @@ RSpec.describe StringCalculator do
     it "raises an error for negative numbers" do
       expect { StringCalculator.add("1,-2,3,-4") }.to raise_error("negative numbers not allowed: -2, -4")
     end
+
+    it "raises an error if the delimiter declaration is malformed (missing newline)" do
+      expect { StringCalculator.add("//;1;2") }.to raise_error("Invalid format: missing newline after delimiter declaration")
+    end    
   end
 end
