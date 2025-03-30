@@ -1,0 +1,10 @@
+source "https://rubygems.org"
+
+gem "sinatra"
+gem "sinatra-contrib"
+gem "sinatra-cross_origin"
+gem "rack-test"
+gem "rspec"
+gem "json"
+gem "puma"
+gem "rackup"
