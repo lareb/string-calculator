@@ -15,6 +15,12 @@ class StringCalculator
       numbers = parts[1]
     end
     numbers = numbers.gsub("\n", delimiter)
+
+    # 🚀 Check for consecutive delimiters
+    if numbers.match?(/#{Regexp.escape(delimiter)}{2,}/)
+      raise "Invalid format detected: #{numbers}"
+    end
+    
     nums = numbers.split(delimiter).map(&:to_i)
     nums.sum
   end

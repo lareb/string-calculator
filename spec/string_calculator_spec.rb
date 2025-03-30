@@ -29,6 +29,10 @@ RSpec.describe StringCalculator do
 
     it "supports custom single-character delimiters" do
       expect(StringCalculator.add("//;\n1;2")).to eq(3)
-    end    
+    end
+
+    it "raises an error for malformed input with consecutive delimiters" do
+      expect { StringCalculator.add("//-\n1-2--3") }.to raise_error("Invalid format detected: 1-2--3")
+    end
   end
 end
