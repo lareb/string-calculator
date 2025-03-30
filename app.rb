@@ -22,6 +22,10 @@ class StringCalculator
     end
     
     nums = numbers.split(delimiter).map(&:to_i)
+
+    negatives = nums.select { |n| n.negative? }
+    raise "negative numbers not allowed: #{negatives.join(', ')}" unless negatives.empty?
+
     nums.sum
   end
 end

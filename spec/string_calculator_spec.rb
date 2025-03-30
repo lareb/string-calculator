@@ -34,5 +34,9 @@ RSpec.describe StringCalculator do
     it "raises an error for malformed input with consecutive delimiters" do
       expect { StringCalculator.add("//-\n1-2--3") }.to raise_error("Invalid format detected: 1-2--3")
     end
+
+    it "raises an error for negative numbers" do
+      expect { StringCalculator.add("1,-2,3,-4") }.to raise_error("negative numbers not allowed: -2, -4")
+    end
   end
 end
