@@ -24,6 +24,11 @@ class StringCalculator
 
     nums = numbers.split(delimiter).map(&:to_i)
 
+    # 🚀 Ensure at least one number is present
+    if nums.empty? || numbers.scan(/\d/).empty?
+      raise "Invalid format detected: #{numbers}"
+    end
+
     negatives = nums.select { |n| n.negative? }
     raise "negative numbers not allowed: #{negatives.join(', ')}" unless negatives.empty?
 

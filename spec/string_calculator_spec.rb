@@ -41,6 +41,10 @@ RSpec.describe StringCalculator do
 
     it "raises an error if the delimiter declaration is malformed (missing newline)" do
       expect { StringCalculator.add("//;1;2") }.to raise_error("Invalid format: missing newline after delimiter declaration")
-    end    
+    end
+    
+    it "raises an error if no numbers are provided after the delimiter declaration" do
+      expect { StringCalculator.add("//;\n") }.to raise_error("Invalid format detected: ")
+    end
   end
 end
