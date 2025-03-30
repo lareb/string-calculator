@@ -1,3 +1,6 @@
+require 'sinatra'
+require 'json'
+
 class StringCalculator
   def self.add(numbers)
     return 0 if numbers.empty?
@@ -33,5 +36,17 @@ class StringCalculator
     raise "negative numbers not allowed: #{negatives.join(', ')}" unless negatives.empty?
 
     nums.sum
+  end
+end
+
+# String Calculator API
+post '/calculate' do
+  begin
+    data = JSON.parse(request.body.read)
+    result = StringCalculator.add(data["numbers"])
+    { result: result }.to_json
+  rescue StandardError => e
+    status 400
+    { error: e.message }.to_json
   end
 end
