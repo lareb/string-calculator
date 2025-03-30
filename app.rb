@@ -1,5 +1,23 @@
 require 'sinatra'
+require 'sinatra/cross_origin'
 require 'json'
+
+# Enable CORS
+configure do
+  enable :cross_origin
+end
+
+# Allow cross-origin requests
+before do
+  response.headers["Access-Control-Allow-Origin"] = "*"
+end
+
+# Handle CORS preflight requests
+options "*" do
+  response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+  response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+  200
+end
 
 class StringCalculator
   def self.add(numbers)
